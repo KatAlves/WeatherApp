@@ -42,8 +42,17 @@ button:hover {
   border: 1px solid black;
 }
 
-footer {
-  margin-top: 10px;
+footer a {
+  font-size: small;
+  line-height: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #2e3336;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #9d68f3;
 }
 
 .container {
