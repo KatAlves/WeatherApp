@@ -96,17 +96,21 @@ footer a:hover {
 div.temperature {
   font-size: 70px;
   color: #ffff;
+  margin-left: 25px;
 }
 
-.F-C a {
-  color: #f0f8fa;
+.F-C {
+  text-decoration: none;
   font-size: 15px;
   text-align: center;
+}
+
+.F-C .active {
+  color: #f0f8fa;
   text-decoration: none;
 }
 
 .F-C :hover {
-  font-size: 20px;
   color: black;
 }
 

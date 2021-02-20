@@ -31,23 +31,6 @@ let currentDate = new Date();
 
 formatDate(currentDate);
 
-//Units
-
-function showCelsius() {
-  let temperature = document.querySelector("#temp-special");
-  temperature.innerHTML = 5;
-}
-
-let celsius = document.querySelector("#celsius");
-celsius.addEventListener("click", showCelsius);
-
-function showFahrenheit() {
-  let temperature = document.querySelector("#temp-special");
-  temperature.innerHTML = 50;
-}
-let fahrenheit = document.querySelector("#fahrenheit");
-fahrenheit.addEventListener("click", showFahrenheit);
-
 //Show WeatherCondition
 
 function displayWeatherCondition(response) {
@@ -56,17 +39,62 @@ function displayWeatherCondition(response) {
   let temperatureElement = document.querySelector("#temp-special");
   let iconElement = document.querySelector("#icon");
   cityElement.innerHTML = response.data.name;
-  temperatureElement.innerHTML = `${temperature}º`;
+  temperatureElement.innerHTML = `${temperature}`;
+
+  celsiusTemperature = temperature;
 
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed);
+    response.data.wind.speed
+  );
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
 
-    iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-    iconElement.setAttribute("alt",response.data.weather[0].main);
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].main);
 }
+
+
+
+
+//Units
+
+function displayCelsius(event) {
+  event.preventDefault();
+  celsius.classList.remove("active");
+fahrenheit.classList.add("active");
+ let temperatureElement = document.querySelector("#temp-special");
+  temperatureElement.innerHTML = celsiusTemperature;
+}
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click", displayCelsius);
+
+
+
+function displayFahrenheit(event) {
+  event.preventDefault();
+celsius.classList.add("active");
+fahrenheit.classList.remove("active");
+  let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
+
+  let temperatureElement = document.querySelector("#temp-special");
+
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
+}
+
+let celsiusTemperature = null;
+
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click", displayFahrenheit);
+
+
+
+
+
 
 //Show City
 
