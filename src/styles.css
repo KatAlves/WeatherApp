@@ -3,9 +3,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.row form {
-  padding-left: 25px;
-}
 
 h1 {
   color: #f0f8fa;
@@ -40,7 +37,7 @@ button {
   transition: all 200ms ease-in-out;
 }
 button:hover {
-  color: black;
+  color: #2e3336;
   background: transparent;
   border: 1px solid black;
 }
@@ -51,7 +48,7 @@ footer a {
   line-height: 25px;
   font-weight: bold;
   text-decoration: none;
-  color: #2e3336;
+  color: #9d68f3;
 }
 
 footer a:hover {
@@ -70,18 +67,14 @@ footer a:hover {
   border-radius: 15px;
   max-width: 550px;
   min-width: 450px;
-  padding: 15px 20px 5px;
-  background: linear-gradient(#535892 0%, #5a558f 60%, #734d8b 70%);
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.247);
-}
-
-.col-6 {
-  padding-left: 25px;
+  padding: 20px 20px 5px;
+  background: linear-gradient(#5a558f 30%, #734d8b 100%);
+  box-shadow: 5px 5px 4px #8d8f9173;
 }
 
 .time-date {
   font-weight: bolder;
-  margin-left: 30px;
+  margin-left: 35px;
   border: solid 1px #f0f8fa;
   border-radius: 10px;
   padding: 10px 10px;
@@ -96,22 +89,21 @@ footer a:hover {
 div.temperature {
   font-size: 70px;
   color: #ffff;
-  margin-left: 25px;
+  margin-left: 30px;
+}
+#temp-special {
+  margin-left: 8px;
 }
 
 .F-C {
-  text-decoration: none;
   font-size: 15px;
   text-align: center;
 }
 
-.F-C .active {
+#celsius,
+#fahrenheit {
   color: #f0f8fa;
   text-decoration: none;
-}
-
-.F-C :hover {
-  color: black;
 }
 
 #thermometer-emoji {
@@ -119,38 +111,16 @@ div.temperature {
   text-align: left;
 }
 
-.card-group {
-  display: flex;
-  color: #5a95af;
-}
-
-.weather-week img {
-  width: 70px;
-  margin: 5px;
-}
-.weather-hour img {
-  width: 70px;
-  margin: 5px;
-}
-.card-title,
-.card-group {
-  font-size: 15px;
-}
-
-.card {
-  text-align: center;
-  background-color: #2e3336;
-}
-
 #gpsButton {
   transition: all 200ms ease-in-out;
 }
 #gpsButton:hover {
-  color: black;
+  color: #2e3336;
   background: transparent;
 }
 
-.col {
-  display: block;
-  margin: 15px auto;
+.forecast {
+  color: #5fd2f3;
+  text-align: center;
+  margin-bottom: 10px;
 }

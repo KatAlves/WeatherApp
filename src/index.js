@@ -1,6 +1,7 @@
 //Date / Time
 
-function formatDate(Date) {
+function formatDate(timestamp) {
+  let currentDate = new Date(timestamp);
   let weekDays = [
     "Sunday",
     "Monday",
@@ -14,6 +15,12 @@ function formatDate(Date) {
   let showDay = document.querySelector("#date");
   showDay.innerHTML = day;
 
+  let showTime = document.querySelector("#time");
+  showTime.innerHTML = `${formatHours(timestamp)}`;
+}
+
+function formatHours(timestamp) {
+  let currentDate = new Date(timestamp);
   let hours = currentDate.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
@@ -23,13 +30,9 @@ function formatDate(Date) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  let showTime = document.querySelector("#time");
-  showTime.innerHTML = `${hours}:${minutes}`;
+
+  return `${hours}:${minutes}`;
 }
-
-let currentDate = new Date();
-
-formatDate(currentDate);
 
 //Show WeatherCondition
 
@@ -57,32 +60,25 @@ function displayWeatherCondition(response) {
   iconElement.setAttribute("alt", response.data.weather[0].main);
 }
 
-
-
-
 //Units
 
 function displayCelsius(event) {
   event.preventDefault();
   celsius.classList.remove("active");
-fahrenheit.classList.add("active");
- let temperatureElement = document.querySelector("#temp-special");
+  fahrenheit.classList.add("active");
+  let temperatureElement = document.querySelector("#temp-special");
   temperatureElement.innerHTML = celsiusTemperature;
 }
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", displayCelsius);
 
-
-
 function displayFahrenheit(event) {
   event.preventDefault();
-celsius.classList.add("active");
-fahrenheit.classList.remove("active");
+  celsius.classList.add("active");
+  fahrenheit.classList.remove("active");
   let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
-
   let temperatureElement = document.querySelector("#temp-special");
-
   temperatureElement.innerHTML = Math.round(fahrenheitTemp);
 }
 
@@ -91,9 +87,38 @@ let celsiusTemperature = null;
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", displayFahrenheit);
 
+//Forecast
+
+function displayForecast(response) {
+  let forecastElement = document.querySelector(".forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 6; index++) {
+    forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+          <div class="col-2">
+            <img
+              src= "http://openweathermap.org/img/wn/${
+                      forecast.weather[0].icon
+                    }@2x.png"
+                    class="card-img-top"
+                    alt="weatherimg"
+            />
+            <h5 class="card-title">${formatHours(
+                      forecast.dt * 1000
+                    )}</h5>
+
+            <p class="card-text"> ${Math.round(
+                      forecast.main.temp_max
+                    )}° ${Math.round(forecast.main.temp_min)}°</p>
+ 
+        
+              </div>`;
+  }
 
 
-
+}
 
 
 //Show City
@@ -102,6 +127,9 @@ function searchCity(city) {
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeatherCondition);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 //GPS Button
@@ -133,3 +161,6 @@ let gpsButton = document.querySelector("#gpsButton");
 gpsButton.addEventListener("click", getPosition);
 
 searchCity("Lisbon");
+
+//fazer o country
+//fazer o if doesent know city
