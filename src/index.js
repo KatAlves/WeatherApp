@@ -43,7 +43,6 @@ function displayWeatherCondition(response) {
   let iconElement = document.querySelector("#icon");
   cityElement.innerHTML = response.data.name;
   temperatureElement.innerHTML = `${temperature}`;
-
   celsiusTemperature = temperature;
 
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
@@ -53,11 +52,15 @@ function displayWeatherCondition(response) {
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
 
+   document.querySelector(".country").innerHTML=response.data.sys.country;
+
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].main);
+
+   console.log(response.data);
 }
 
 //Units
@@ -87,37 +90,38 @@ let celsiusTemperature = null;
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", displayFahrenheit);
 
+
+//Forecast Days
+
+
+
 //Forecast
 
 function displayForecast(response) {
   let forecastElement = document.querySelector(".forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-
+  
   for (let index = 0; index < 6; index++) {
     forecast = response.data.list[index];
     forecastElement.innerHTML += `
           <div class="col-2">
             <img
               src= "http://openweathermap.org/img/wn/${
-                      forecast.weather[0].icon
-                    }@2x.png"
+                forecast.weather[0].icon
+              }@2x.png"
                     class="card-img-top"
                     alt="weatherimg"
             />
-            <h5 class="card-title">${formatHours(
-                      forecast.dt * 1000
-                    )}</h5>
+            <h5 class="card-title">${formatHours(forecast.dt * 1000)}</h5>
 
             <p class="card-text"> ${Math.round(
-                      forecast.main.temp_max
-                    )}° ${Math.round(forecast.main.temp_min)}°</p>
+              forecast.main.temp_max
+            )}° ${Math.round(forecast.main.temp_min)}°</p>
  
         
               </div>`;
   }
-
-
 }
 
 
@@ -126,10 +130,23 @@ function displayForecast(response) {
 function searchCity(city) {
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+  axios
+    .get(apiUrl)
+    .then(displayWeatherCondition)
+    .catch((err) => {
+      if (err.response.status === 404) {
+        alert("City not found");
+      }
+    });
+
   axios.get(apiUrl).then(displayWeatherCondition);
 
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayForecast);
+
+apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+axios.get(apiUrl).then(displayForecast);
+
+
 }
 
 //GPS Button
@@ -162,5 +179,4 @@ gpsButton.addEventListener("click", getPosition);
 
 searchCity("Lisbon");
 
-//fazer o country
-//fazer o if doesent know city
+//fazer o feels like
