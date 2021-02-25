@@ -21,6 +21,8 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
   </head>
 
   <body>
@@ -59,15 +61,20 @@
               </svg>
             </h1>
 
-            <div class="col-3">
+            <div class="col-12">
               <span class="country">Portugal</span>
               <img
                 src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/joypixels/257/cloud-with-rain_1f327.png"
                 alt=""
                 class="main-icon"
                 id="icon"
-              />
+                
+              />  
+  <span class="animated">       
+Feels Like <span id= feelsLike></span>º with <span id=descriptionLong></span>
+  </span> 
             </div>
+            
           </div>
           <div class="col-6">
             <div class="time-date">
@@ -81,6 +88,7 @@
               <li><span id="description"> Rainy</span></li>
               <li>Humidity: <span id="humidity">20</span>%</li>
               <li>Wind: <span id="wind">9</span> km/h</li>
+              
             </ul>
 
             <div class="temperature">
@@ -97,6 +105,7 @@
         <div class="row forecast">
     </div>
     </div>
+  
     <footer>
       <div class="row">
         <a

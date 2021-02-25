@@ -45,22 +45,50 @@ function displayWeatherCondition(response) {
   temperatureElement.innerHTML = `${temperature}`;
   celsiusTemperature = temperature;
 
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].main;
+
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  document.querySelector("#description").innerHTML =
-    response.data.weather[0].main;
 
-   document.querySelector(".country").innerHTML=response.data.sys.country;
+  document.querySelector(".country").innerHTML = response.data.sys.country;
+
+  document.querySelector("#feelsLike").innerHTML = Math.round(
+    response.data.main.feels_like
+  );
+  document.querySelector("#descriptionLong").innerHTML =
+    response.data.weather[0].description;
+
+  let textWrapper = document.querySelector(".animated");
+  textWrapper.innerHTML = textWrapper.textContent.replace(
+    /\S/g,
+    "<span class='letter'>$&</span>"
+  );
+
+  anime
+    .timeline({ loop: true })
+    .add({
+      targets: ".animated .letter",
+      opacity: [0, 1],
+      easing: "easeInOutQuad",
+      duration: 2250,
+      delay: (el, i) => 150 * (i + 1),
+    })
+    .add({
+      targets: ".ml3",
+      opacity: 0,
+      duration: 1000,
+      easing: "easeOutExpo",
+      delay: 1000,
+    });
 
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].main);
-
-   console.log(response.data);
 }
 
 //Units
@@ -90,18 +118,13 @@ let celsiusTemperature = null;
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", displayFahrenheit);
 
-
-//Forecast Days
-
-
-
 //Forecast
 
 function displayForecast(response) {
   let forecastElement = document.querySelector(".forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  
+
   for (let index = 0; index < 6; index++) {
     forecast = response.data.list[index];
     forecastElement.innerHTML += `
@@ -122,8 +145,40 @@ function displayForecast(response) {
         
               </div>`;
   }
-}
+  let currentDate = new Date();
+  let weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
+  let day = null;
+  for (let index = 1; index <= 5; index++) {
+    day = weekDays[currentDate.getDay() + index];
+    forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+          <div class="col-2">
+            <img
+              src= "http://openweathermap.org/img/wn/${
+                forecast.weather[0].icon
+              }@2x.png"
+                    class="card-img-top"
+                    alt="weatherimg"
+            />
+            <h5 class="card-title">${day}</h5>
+        
+            <p class="card-text"> ${Math.round(
+              forecast.main.temp_max
+            )}° ${Math.round(forecast.main.temp_min)}°</p>
+ 
+        
+              </div>`;
+  }
+}
 
 //Show City
 
@@ -140,13 +195,8 @@ function searchCity(city) {
       }
     });
 
-  axios.get(apiUrl).then(displayWeatherCondition);
-
-
-apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-axios.get(apiUrl).then(displayForecast);
-
-
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 //GPS Button
