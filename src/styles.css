@@ -100,6 +100,11 @@ div.temperature {
   margin-left: 8px;
 }
 
+#currentMin,
+#currentMax {
+  font-size: 15px;
+}
+
 .F-C {
   font-size: 15px;
   text-align: center;

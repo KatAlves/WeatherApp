@@ -30,7 +30,6 @@ function formatHours(timestamp) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-
   return `${hours}:${minutes}`;
 }
 
@@ -47,10 +46,16 @@ function displayWeatherCondition(response) {
 
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
-
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
+  );
+
+  document.querySelector("#currentMin").innerHTML = Math.round(
+    response.data.main.temp_min
+  );
+  document.querySelector("#currentMax").innerHTML = Math.round(
+    response.data.main.temp_max
   );
 
   document.querySelector(".country").innerHTML = response.data.sys.country;
@@ -60,29 +65,6 @@ function displayWeatherCondition(response) {
   );
   document.querySelector("#descriptionLong").innerHTML =
     response.data.weather[0].description;
-
-  let textWrapper = document.querySelector(".animated");
-  textWrapper.innerHTML = textWrapper.textContent.replace(
-    /\S/g,
-    "<span class='letter'>$&</span>"
-  );
-
-  anime
-    .timeline({ loop: true })
-    .add({
-      targets: ".animated .letter",
-      opacity: [0, 1],
-      easing: "easeInOutQuad",
-      duration: 2250,
-      delay: (el, i) => 150 * (i + 1),
-    })
-    .add({
-      targets: ".ml3",
-      opacity: 0,
-      duration: 1000,
-      easing: "easeOutExpo",
-      delay: 1000,
-    });
 
   iconElement.setAttribute(
     "src",
@@ -114,7 +96,6 @@ function displayFahrenheit(event) {
 }
 
 let celsiusTemperature = null;
-
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", displayFahrenheit);
 
@@ -124,7 +105,6 @@ function displayForecast(response) {
   let forecastElement = document.querySelector(".forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-
   for (let index = 0; index < 6; index++) {
     forecast = response.data.list[index];
     forecastElement.innerHTML += `
@@ -146,18 +126,9 @@ function displayForecast(response) {
               </div>`;
   }
   let currentDate = new Date();
-  let weekDays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
+  let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let day = null;
-  for (let index = 1; index <= 5; index++) {
+  for (let index = 1; index <= 6; index++) {
     day = weekDays[currentDate.getDay() + index];
     forecast = response.data.list[index];
     forecastElement.innerHTML += `
@@ -190,12 +161,15 @@ function searchCity(city) {
     .get(apiUrl)
     .then(displayWeatherCondition)
     .catch((err) => {
-      if (err.response.status === 404) {
-        alert("City not found");
+      if (err.response != undefined) {
+        if (err.response.status === 404) {
+          alert("City not found");
+        }
       }
     });
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -228,5 +202,4 @@ let gpsButton = document.querySelector("#gpsButton");
 gpsButton.addEventListener("click", getPosition);
 
 searchCity("Lisbon");
-
-//fazer o feels like
+formatDate(Date.now());
