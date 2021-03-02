@@ -51,12 +51,13 @@ function displayWeatherCondition(response) {
     response.data.wind.speed
   );
 
-  document.querySelector("#currentMin").innerHTML = Math.round(
+  document.querySelector("#currentMin").innerHTML = `${Math.round(
     response.data.main.temp_min
-  );
-  document.querySelector("#currentMax").innerHTML = Math.round(
+  )}min`;
+
+  document.querySelector("#currentMax").innerHTML = `${Math.round(
     response.data.main.temp_max
-  );
+  )}max`;
 
   document.querySelector(".country").innerHTML = response.data.sys.country;
 
@@ -128,8 +129,13 @@ function displayForecast(response) {
   let currentDate = new Date();
   let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let day = null;
+
   for (let index = 1; index <= 6; index++) {
-    day = weekDays[currentDate.getDay() + index];
+    let weekDaysIndex = currentDate.getDay() + index;
+    if (weekDaysIndex > 6) {
+      weekDaysIndex = weekDaysIndex - 7;
+    }
+    day = weekDays[weekDaysIndex];
     forecast = response.data.list[index];
     forecastElement.innerHTML += `
           <div class="col-2">

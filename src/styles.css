@@ -86,7 +86,7 @@ footer a:hover {
   margin: 0 0 0px 70px;
 }
 
-.animated {
+.phrase {
   margin-left: 30px;
   color: #f0f8fa;
 }
@@ -100,9 +100,11 @@ div.temperature {
   margin-left: 8px;
 }
 
-#currentMin,
-#currentMax {
-  font-size: 15px;
+#temp-special2 {
+  font-size: 10px;
+  width: 70px;
+  height: 10px;
+  margin: 0 auto;
 }
 
 .F-C {
