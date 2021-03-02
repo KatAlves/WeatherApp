@@ -22,9 +22,7 @@
     />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-
   </head>
-
   <body>
     <div class="container">
       <div class="weather-app">
@@ -37,8 +35,7 @@
               autofocus="on"
               id="city-input"
             />
-
-            <button>Search</button>
+            <button>Go!</button>
           </form>
         </div>
         <div class="row">
@@ -60,10 +57,8 @@
                 />
               </svg>
             </h1>
-
             <div class="col-12">
-              <span class="country"></span>
-              
+              <span class="country"></span>             
               <img
                 src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/joypixels/257/cloud-with-rain_1f327.png"
                 alt=""
@@ -74,9 +69,7 @@
   <span class="phrase">       
 Feels Like <span id= feelsLike>20</span>º with <span id=descriptionLong>catia</span>
   </span> 
-
-            </div>
-            
+            </div>    
           </div>
           <div class="col-6">
             <div class="time-date">
@@ -89,53 +82,38 @@ Feels Like <span id= feelsLike>20</span>º with <span id=descriptionLong>catia</
             <ul>
               <li><span id="description"> Rainy</span></li>
               <li>Humidity: <span id="humidity">20</span>%</li>
-              <li>Wind: <span id="wind">9</span> km/h</li>
-              
+              <li>Wind: <span id="wind">9</span> km/h</li>  
             </ul>
             <br>
              <div id= "temp-special2">
                <span id="currentMin"> </span>
                <span id="currentMax"> </span>
                </div>
-
             <div class="temperature">
- 
-
-
               <span class="F-C">
                 <a href="#" id="fahrenheit">ºF</a>
                 <span id="thermometer-emoji"> 🌡️</span>
                 <a href="#" class="active" id="celsius">ºC</a>
-              </span>
-
-              
-              <span id="temp-special"> </span>
-          
-            
-            </div>
-          
-        
-          </div>
-               
+              </span>             
+              <span id="temp-special"> </span>           
+            </div>        
+          </div>              
         </div>
-
         <div class="row forecast">
     </div>
     </div>
-  
     <footer>
       <div class="row">
         <a
           href="https://www.linkedin.com/in/c%C3%A1tia-filipa-alves/"
           target="_blank"
-          >Coded by Cátia Alves</a
+          >WeatherApp by Cátia Alves</a
         >
         <a href="https://github.com/KatAlves/WeatherApp.git" target="_blank"
           >Open-sourced on GitHub</a
         >
       </div>
     </footer>
-
     <script src="src/index.js"></script>
   </body>
 </html>

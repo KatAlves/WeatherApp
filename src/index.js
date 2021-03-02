@@ -1,4 +1,8 @@
-//Date / Time
+
+let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+let units = "metric";
+
+// Clock
 
 function formatDate(timestamp) {
   let currentDate = new Date(timestamp);
@@ -12,11 +16,8 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let day = weekDays[currentDate.getDay()];
-  let showDay = document.querySelector("#date");
-  showDay.innerHTML = day;
-
-  let showTime = document.querySelector("#time");
-  showTime.innerHTML = `${formatHours(timestamp)}`;
+  document.querySelector("#date").innerHTML = day;
+  document.querySelector("#time").innerHTML = `${formatHours(timestamp)}`;
 }
 
 function formatHours(timestamp) {
@@ -25,7 +26,6 @@ function formatHours(timestamp) {
   if (hours < 10) {
     hours = `0${hours}`;
   }
-
   let minutes = currentDate.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
@@ -33,40 +33,32 @@ function formatHours(timestamp) {
   return `${hours}:${minutes}`;
 }
 
-//Show WeatherCondition
+//Display WeatherCondition
 
 function displayWeatherCondition(response) {
-  let cityElement = document.querySelector("#city");
   let temperature = Math.round(response.data.main.temp);
-  let temperatureElement = document.querySelector("#temp-special");
   let iconElement = document.querySelector("#icon");
-  cityElement.innerHTML = response.data.name;
-  temperatureElement.innerHTML = `${temperature}`;
+  document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#temp-special").innerHTML = `${temperature}`;
   celsiusTemperature = temperature;
-
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-
   document.querySelector("#currentMin").innerHTML = `${Math.round(
     response.data.main.temp_min
-  )}min`;
-
+  )}↓ `;
   document.querySelector("#currentMax").innerHTML = `${Math.round(
     response.data.main.temp_max
-  )}max`;
-
+  )}↑`;
   document.querySelector(".country").innerHTML = response.data.sys.country;
-
   document.querySelector("#feelsLike").innerHTML = Math.round(
     response.data.main.feels_like
   );
   document.querySelector("#descriptionLong").innerHTML =
     response.data.weather[0].description;
-
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
@@ -80,25 +72,19 @@ function displayCelsius(event) {
   event.preventDefault();
   celsius.classList.remove("active");
   fahrenheit.classList.add("active");
-  let temperatureElement = document.querySelector("#temp-special");
-  temperatureElement.innerHTML = celsiusTemperature;
+ document.querySelector("#temp-special").innerHTML = celsiusTemperature;
 }
-
-let celsius = document.querySelector("#celsius");
-celsius.addEventListener("click", displayCelsius);
+document.querySelector("#celsius").addEventListener("click", displayCelsius);
 
 function displayFahrenheit(event) {
   event.preventDefault();
   celsius.classList.add("active");
   fahrenheit.classList.remove("active");
   let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
-  let temperatureElement = document.querySelector("#temp-special");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
+  document.querySelector("#temp-special").innerHTML = Math.round(fahrenheitTemp);
 }
-
 let celsiusTemperature = null;
-let fahrenheit = document.querySelector("#fahrenheit");
-fahrenheit.addEventListener("click", displayFahrenheit);
+document.querySelector("#fahrenheit").addEventListener("click", displayFahrenheit);
 
 //Forecast
 
@@ -121,15 +107,12 @@ function displayForecast(response) {
 
             <p class="card-text"> ${Math.round(
               forecast.main.temp_max
-            )}° ${Math.round(forecast.main.temp_min)}°</p>
- 
-        
+            )}° ${Math.round(forecast.main.temp_min)}°</p>     
               </div>`;
   }
   let currentDate = new Date();
   let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let day = null;
-
   for (let index = 1; index <= 6; index++) {
     let weekDaysIndex = currentDate.getDay() + index;
     if (weekDaysIndex > 6) {
@@ -147,22 +130,17 @@ function displayForecast(response) {
                     alt="weatherimg"
             />
             <h5 class="card-title">${day}</h5>
-        
             <p class="card-text"> ${Math.round(
               forecast.main.temp_max
-            )}° ${Math.round(forecast.main.temp_min)}°</p>
- 
-        
+            )}° ${Math.round(forecast.main.temp_min)}°</p>       
               </div>`;
   }
 }
 
-//Show City
+//Find City
 
 function searchCity(city) {
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
   axios
     .get(apiUrl)
     .then(displayWeatherCondition)
@@ -173,13 +151,9 @@ function searchCity(city) {
         }
       }
     });
-
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-
   axios.get(apiUrl).then(displayForecast);
 }
-
-//GPS Button
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -187,11 +161,11 @@ function handleSubmit(event) {
   searchCity(city);
 }
 
+//GPS Button
+
 function searchLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let units = "metric";
-  let apiKey = "8928143376b6d241d15f969b0a4f9c51";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayWeatherCondition);
 }

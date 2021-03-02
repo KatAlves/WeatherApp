@@ -6,15 +6,12 @@ body {
 
 h1 {
   color: #f0f8fa;
-  font-weight: 50;
+  font-weight: 40;
   font-size: 60px;
-  margin: 0;
+  line-height: 70%;
+  margin: 10px 10px 0 10px;
 }
-span.country {
-  font-size: 20px;
-  margin: 0;
-  color: #f0f8fa;
-}
+
 ul {
   margin: 0;
   padding: 0;
@@ -28,18 +25,18 @@ li {
 }
 button {
   color: #f0f8fa;
-  font-size: 15px;
-  padding: 5px 10px;
-  background: #2e3336;
-  border: 1px solid #2e3336;
+  font-size: 14px;
+  padding: 6px;
+  background: #3d4142;
+  border: 1px solid #3d4142;
   border-radius: 10px 10px;
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.247);
+  box-shadow: 5px 5px 4px #4b468a;
   transition: all 200ms ease-in-out;
 }
 button:hover {
-  color: #2e3336;
+  color: #3d4142;
   background: transparent;
-  border: 1px solid black;
+  border: 1px solid #4b468a;
 }
 
 footer a {
@@ -48,12 +45,18 @@ footer a {
   line-height: 25px;
   font-weight: bold;
   text-decoration: none;
-  color: #9d68f3;
+  color: #734d8b;
 }
 
 footer a:hover {
   text-decoration: underline;
-  color: #9d68f3;
+  color: #734d8b;
+}
+
+span.country {
+  font-size: 15px;
+  margin: 15px;
+  color: #f0f8fa;
 }
 
 .container {
@@ -63,32 +66,35 @@ footer a:hover {
 .weather-app {
   display: block;
   margin: 0 auto;
-  border: solid 1px #5fd2f3;
+  border: solid 1px #68d5f3;
   border-radius: 15px;
   max-width: 550px;
   min-width: 450px;
-  padding: 20px 20px 5px;
+  padding: 25px 25px 5px;
   background: linear-gradient(#5a558f 30%, #734d8b 100%);
-  box-shadow: 5px 5px 4px #8d8f9173;
+  box-shadow: 5px 5px 4px #8d8f9148;
 }
 
 .time-date {
+  background-color: #2e333627;
   font-weight: bolder;
   margin-left: 35px;
   border: solid 1px #f0f8fa;
   border-radius: 10px;
   padding: 10px 10px;
-  width: 170px;
+  width: 160px;
 }
 .main-icon {
-  width: 150px;
+  width: 120px;
   display: block;
-  margin: 0 0 0px 70px;
+  margin: 0 0 0px 60px;
 }
 
 .phrase {
   margin-left: 30px;
   color: #f0f8fa;
+  font-weight: bold;
+  font-size: 15px;
 }
 
 div.temperature {
@@ -98,13 +104,17 @@ div.temperature {
 }
 #temp-special {
   margin-left: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 #temp-special2 {
-  font-size: 10px;
+  font-size: 15px;
   width: 70px;
   height: 10px;
   margin: 0 auto;
+  color: #f0f8fa;
+  text-align: center;
 }
 
 .F-C {
@@ -132,7 +142,15 @@ div.temperature {
 }
 
 .forecast {
-  color: #5fd2f3;
+  color: #7595eb;
   text-align: center;
   margin-bottom: 10px;
+}
+
+.col-2 {
+  background-color: #2e333627;
+  border-radius: 10px;
+  padding: 2px;
+  margin: 2px auto;
+  width: 80px;
 }
