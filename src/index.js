@@ -1,4 +1,3 @@
-
 let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
 let units = "metric";
 
@@ -36,9 +35,10 @@ function formatHours(timestamp) {
 //Display WeatherCondition
 
 function displayWeatherCondition(response) {
+  let city = response.data.name;
   let temperature = Math.round(response.data.main.temp);
   let iconElement = document.querySelector("#icon");
-  document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#city").innerHTML = city;
   document.querySelector("#temp-special").innerHTML = `${temperature}`;
   celsiusTemperature = temperature;
   document.querySelector("#description").innerHTML =
@@ -59,11 +59,15 @@ function displayWeatherCondition(response) {
   );
   document.querySelector("#descriptionLong").innerHTML =
     response.data.weather[0].description;
+
   iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].main);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 //Units
@@ -72,7 +76,7 @@ function displayCelsius(event) {
   event.preventDefault();
   celsius.classList.remove("active");
   fahrenheit.classList.add("active");
- document.querySelector("#temp-special").innerHTML = celsiusTemperature;
+  document.querySelector("#temp-special").innerHTML = celsiusTemperature;
 }
 document.querySelector("#celsius").addEventListener("click", displayCelsius);
 
@@ -81,10 +85,14 @@ function displayFahrenheit(event) {
   celsius.classList.add("active");
   fahrenheit.classList.remove("active");
   let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
-  document.querySelector("#temp-special").innerHTML = Math.round(fahrenheitTemp);
+  document.querySelector("#temp-special").innerHTML = Math.round(
+    fahrenheitTemp
+  );
 }
 let celsiusTemperature = null;
-document.querySelector("#fahrenheit").addEventListener("click", displayFahrenheit);
+document
+  .querySelector("#fahrenheit")
+  .addEventListener("click", displayFahrenheit);
 
 //Forecast
 
@@ -151,8 +159,6 @@ function searchCity(city) {
         }
       }
     });
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayForecast);
 }
 
 function handleSubmit(event) {

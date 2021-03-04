@@ -6,10 +6,10 @@ body {
 
 h1 {
   color: #f0f8fa;
-  font-weight: 40;
+  font-weight: 35;
   font-size: 60px;
   line-height: 70%;
-  margin: 10px 10px 0 10px;
+  margin: 10px 0;
 }
 
 ul {
@@ -55,7 +55,7 @@ footer a:hover {
 
 span.country {
   font-size: 15px;
-  margin: 15px;
+  margin-left: 5px;
   color: #f0f8fa;
 }
 
@@ -91,7 +91,7 @@ span.country {
 }
 
 .phrase {
-  margin-left: 30px;
+  margin-left: 10px;
   color: #f0f8fa;
   font-weight: bold;
   font-size: 15px;
@@ -134,10 +134,12 @@ div.temperature {
 }
 
 #gpsButton {
+  color: #000000;
   transition: all 200ms ease-in-out;
+  width: 15px;
 }
 #gpsButton:hover {
-  color: #2e3336;
+  color: #7595eb;
   background: transparent;
 }
 
