@@ -1,3 +1,4 @@
+
 let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
 let units = "metric";
 
@@ -12,7 +13,7 @@ function formatDate(timestamp) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday",
+    "Saturday"
   ];
   let day = weekDays[currentDate.getDay()];
   document.querySelector("#date").innerHTML = day;
@@ -153,7 +154,7 @@ function searchCity(city) {
     .get(apiUrl)
     .then(displayWeatherCondition)
     .catch((err) => {
-      if (err.response != undefined) {
+      if (err.response !== undefined) {
         if (err.response.status === 404) {
           alert("City not found");
         }
